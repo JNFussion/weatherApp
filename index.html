@@ -1,1 +1,208 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/><title>Weather</title><script defer="defer" src="main.bundle.js"></script></head><body class="h-screen min-h-screen grid grid-rows-6 lg:grid-cols-8 lg:grid-rows-4 bg-prussianBlue bg-wavesplit lg:bg-wave bg-cover bg-no-repeat bg-right-top lg:bg-center text-ghostWhite"><form class="row-span-2 lg:col-start-4 lg:col-span-2 lg:row-start-2 lg:row-span-1 grid gap-4 place-content-center" action=""><fielset class="flex gap-2"><input type="radio" name="degree" id="input-fahrenheit" class="appearance-none"/> <label for="input-fahrenheit" class="px-1 font-bold cursor-pointer">°F</label><div class="h-full w-px bg-ghostWhite"></div><input type="radio" name="degree" id="input-celcius" class="appearance-none order-last"/> <label for="input-celcius" class="px-1 font-bold cursor-pointer" id="label-celcius">°C</label></fielset><fieldset class="flex gap-1 bg-midnightGreenEagleGreen-dark px-5 py-2 rounded-full shadow-md"><input class="bg-charcoal rounded-sm px-3 py-1 focus:outline-none focus:ring-1 focus:ring-skobeloff" type="search"/> <button class="rounded-l-sm rounded-r-lg bg-russianViolet-light hover:bg-russianViolet" type="submit"><i class="fas fa-search px-3"></i></button></fieldset></form><section class="row-start-3 row-end-full lg:row-start-2 lg:col-span-3 lg:row-span-2 grid gap-16 lg:gap-0 lg:grid-cols-4 auto-rows-max lg:content-center px-6"><h2 class="lg:col-span-2 font-bold text-xl my-4">Suggested locations</h2><div class="lg:col-span-full lg:row-start-2 lg:row-span-auto flex gap-4 flex-wrap justify-center align-baseline px-4 sibling-fade"><button class="suggested-btn">Madrid</button> <button class="suggested-btn">Paris</button> <button class="suggested-btn">Berlin</button> <button class="suggested-btn">London</button> <button class="suggested-btn">New York</button> <button class="suggested-btn">Buenos Aires</button> <button class="suggested-btn">Ottawa</button> <button class="suggested-btn">Mexico City</button></div></section></body></html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/><title>Weather</title><script defer="defer" src="index.bundle.js"></script></head><body class="text-ghostWhite bg-prussianBlue"><div class="h-screen min-h-screen grid grid-rows-6 lg:grid-cols-8 lg:grid-rows-4 bg-prussianBlue bg-wavesplit lg:bg-wave bg-cover bg-no-repeat bg-right-top lg:bg-center text-ghostWhite"><form class="row-span-2 lg:col-start-4 lg:col-span-2 lg:row-start-2 lg:row-span-1 grid gap-4 place-content-center" action=""><fielset class="flex gap-2"><input type="radio" name="degree" id="input-fahrenheit" class="appearance-none" value="imperial"/> <label for="input-fahrenheit" class="px-1 font-bold cursor-pointer">°F</label><div class="h-full w-px bg-ghostWhite"></div><input type="radio" name="degree" id="input-celcius" class="appearance-none order-last" value="metric" checked="checked"/> <label for="input-celcius" class="px-1 font-bold cursor-pointer" id="label-celcius">°C</label></fielset><fieldset class="flex gap-1 bg-midnightGreenEagleGreen-dark px-5 py-2 rounded-full shadow-md"><input class="bg-charcoal rounded-sm px-3 py-1 focus:outline-none focus:ring-1 focus:ring-skobeloff" type="search" placeholder="Search your city" name="city-name" required/> <button class="rounded-l-sm rounded-r-lg bg-russianViolet-light hover:bg-russianViolet" type="submit"><i class="fas fa-search px-3"></i></button></fieldset></form><section class="row-start-3 row-end-full lg:row-start-2 lg:col-span-3 lg:row-span-2 grid gap-16 lg:gap-0 lg:grid-cols-4 auto-rows-max lg:content-center px-6"><h2 class="lg:col-span-2 font-bold text-xl my-4">Suggested locations</h2><div class="lg:col-span-full lg:row-start-2 lg:row-span-auto flex gap-4 flex-wrap justify-center align-baseline px-4 sibling-fade"><button class="suggested-btn">Madrid</button> <button class="suggested-btn">Paris</button> <button class="suggested-btn">Berlin</button> <button class="suggested-btn">London</button> <button class="suggested-btn">New York City</button> <button class="suggested-btn">Moscow</button> <button class="suggested-btn">Tokyo</button> <button class="suggested-btn">Mexico City</button></div></section></div><script id="cityTemplate" type="text/template">{{#city}}
+      <article
+        class="
+          max-w-4xl
+          mx-auto
+          my-4
+          px-4
+          py-6
+          rounded-md
+          shadow-lg
+          bg-{{background}} bg-cover
+        "
+      >
+        <header
+          class="
+            grid grid-cols-2 grid-rows-1fr-2fr-1fr-1fr
+            lg:gap-y-4 lg:grid-cols-6 lg:grid-rows-3
+            items-center
+          "
+        >
+          <h2 class="font-bold text-2xl">{{name}}</h2>
+          <p class="lg:col-start-2 lg:row-span-2 justify-self-center flex gap-3">
+            <span class="font-black text-5xl lg:text-7xl">{{#formatTemp}}forecast.current.temp{{/formatTemp}}º</span>
+            <span class="text-ghostWhite text-3xl text-opacity-75">{{#formatTemp}}forecast.daily.0.temp.min{{/formatTemp}}º</span>
+          </p>
+          {{#stacked}}
+            <span class="fa-stack row-span-2 text-stacked-icons ml-5 mt-2">
+              <i class="fas fa-cloud fa-stack-2x weather-icon"></i>
+              <i class="fas fa-cloud fa-stack-1x weather-icon"></i>
+            </span>
+          {{/stacked}}
+          {{^stacked}}
+            <i class="{{#icon}}forecast.current.weather.icon{{/icon}} fa-fw weather-icon col-start-2
+              row-start-1 row-span-2
+              lg:col-start-3 lg:col-span-2 lg:row-span-full
+              justify-self-center
+              pb-3
+              text-8xl-1/2
+              lg:text-9xl"></i>
+          {{/stacked}}
+          <p
+            class="
+              col-span-full
+              lg:col-span-2 lg:row-start-3
+              py-2
+              rounded-full
+              shadow-md
+              text-center
+              bg-darkPurle
+            "
+          >
+            {{forecast.current.weather.description}}
+          </p>
+          <ul
+            class="
+              lg:h-full
+              col-span-full
+              lg:col-start-5 lg:col-span-2 lg:row-span-full
+              flex
+              lg:flex-col
+              my-4
+            "
+          >
+            <li class="flex-1">
+              <span class="text-lg">
+                <i class="fas fa-tint weather-icon text-sm"></i>
+                <span class="label-weather-list">Humidity:</span>
+              </span>
+              <span>{{forecast.current.humidity}} %</span>
+            </li>
+            <li class="flex-1">
+              <span class="text-lg">
+                <i class="fas fa-angry weather-icon text-sm"></i>
+                <span class="label-weather-list">Pressure:</span>
+              </span>
+              <span>{{forecast.current.pressure}} hPa </span>
+            </li>
+            <li class="flex-1">
+              <span class="text-lg"
+                ><i class="fas fa-wind weather-icon text-sm"></i
+                ><span class="label-weather-list">Wind speed:</span>
+              </span>
+              <span>{{forecast.current.windSpeed}} m/s</span>
+            </li>
+          </ul>
+        </header>
+        <section
+          id="sunset-sunrise-container"
+          class="
+            relative
+            overflow-hidden
+            grid grid-cols-2 grid-rows-2
+            my-2
+            lg:my-4
+          "
+        >
+          <img
+            src="../src/assets/images/Wave Line.svg"
+            alt=""
+            class="absolute transform-gpu w-full h-full"
+          />
+          <div class="row-start-2">
+            <span class="fa-stack">
+              <i class="fas fa-sun fa-stack-2x weather-icon"></i>
+              <i class="fas fa-angle-double-up fa-stack-1x weather-icon"></i>
+            </span>
+            <span class="mx-3">{{#getHour}}forecast.current.sunrise{{/getHour}}</span>
+          </div>
+          <div class="col-start-2 self-end justify-self-end">
+            <span class="fa-stack">
+              <i class="far fa-sun fa-stack-2x weather-icon"></i>
+              <i class="fas fa-angle-double-down fa-stack-1x weather-icon"></i>
+            </span>
+            <span class="mx-3">{{#getHour}}forecast.current.sunset{{/getHour}}</span>
+          </div>
+        </section>
+        <section class="px-2 py-4">
+          <h3 class="text-gainsboro text-lg font-bold">Today</h3>
+          <div class="p-2 flex gap-5 overflow-x-auto overflow-y-hidden">
+            {{#forecast.hourly}}
+            <article class="grid gap-1 justify-items-center">
+              <p class="w-max text-xs">{{#getHour}}date{{/getHour}}</p>
+              {{#stackedTime}}
+                <span class="fa-stack text-xl">
+                  <i class="fas fa-cloud fa-stack-2x weather-icon"></i>
+                  <i class="fas fa-cloud fa-stack-1x weather-icon"></i>
+                </span>
+              {{/stackedTime}}
+              {{^stackedTime}}
+                <i class="{{#icon}}weather.icon{{/icon}} fa-fw weather-icon text-xl"></i>
+              {{/stackedTime}}
+              <p class="font-medium">{{#formatTemp}}temp{{/formatTemp}}</p>
+            </article>
+            {{/forecast.hourly}}
+          </div>
+        </section>
+        <section class="overflow-x-auto grid lg:grid-flow-col gap-4 lg:justify-items-center">
+          {{#forecast.daily}}
+          {{^isToday}}
+          <article
+            class="flex justify-between lg:grid lg:gap-1 lg:justify-items-center"
+          >
+            <h4 class="font-bold text-xl">{{getDayOfWeek}}</h4>
+            {{#stackedTime}}
+              <span class="fa-stack text-2xl">
+                <i class="fas fa-cloud fa-stack-2x weather-icon"></i>
+                <i class="fas fa-cloud fa-stack-1x weather-icon"></i>
+              </span>
+            {{/stackedTime}}
+            {{^stackedTime}}
+              <i class="{{#icon}}weather.icon{{/icon}} fa-fw weather-icon text-2xl"></i>
+            {{/stackedTime}}
+            <p class="flex gap-4 items-center">
+              <span class="text-lg font-medium">{{#formatTemp}}temp.max{{/formatTemp}}º</span>
+              <span class="text-ghostWhite text-opacity-75">{{#formatTemp}}temp.min{{/formatTemp}}º</span>
+            </p>
+          </article>
+          {{/isToday}}
+          {{/forecast.daily}}
+        </section>
+      </article>
+      {{/city}}</script><script id="searchResultsTemplate" type="text/template"><div class="max-w-5xl mx-auto my-8">
+        <h2 class="font-bold text-2xl">Found {{length}} cities</h2>
+        <div class="grid gap-4 m-4 sibling-fade" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
+          {{#cities}}
+          <article
+            id="city-result-{{name}}"
+            data-lat="{{coord.lat}}"
+            data-lon="{{coord.lon}}"
+            class="
+              grid
+              gap-2
+              grid-cols-2 grid-rows-3
+              place-items-center
+              px-4
+              py-3
+              rounded-md
+              shadow-lg
+              bg-{{background}} bg-cover
+              cursor-pointer
+            "
+          >
+            <p class="text-5xl font-extrabold">{{#formatTemp}}forecast.current.temp{{/formatTemp}}º</p>
+            {{#stacked}}
+              <span class="fa-stack row-span-2 text-stacked-icons ml-5 mt-2">
+                <i class="fas fa-cloud fa-stack-2x weather-icon"></i>
+                <i class="fas fa-cloud fa-stack-1x weather-icon"></i>
+              </span>
+              {{/stacked}}
+              {{^stacked}}
+                <i class="{{#icon}}forecast.current.weather.icon{{/icon}} weather-icon row-span-2 text-7xl fa-fw"></i>
+              {{/stacked}}
+            <div>
+              <p class="font-medium">{{name}}</p>
+              <p class="text-sm text-ghostWhite">{{country}}</p>
+            </div>
+            <div class="col-start-1">
+              <i class="fas fa-tint weather-icon text-sm"></i>
+              <span>{{forecast.current.humidity}}%</span>
+            </div>
+            <div>
+              <i class="fas fa-wind weather-icon text-sm"></i>
+              <span>{{forecast.current.windSpeed}} m/s</span>
+            </div>
+          </article>
+          {{/cities}}
+        </div>
+      </div></script></body></html>
