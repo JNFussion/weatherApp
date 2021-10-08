@@ -25,7 +25,54 @@
         text-ghostWhite
       "
     >
-      <form
+      <section
+        class="
+          lg:col-span-4
+          xl:col-span-3
+          row-start-3
+          sm:row-start-4
+          lg:row-start-3
+          xl:row-start-2
+          row-end-full
+          lg:row-span-2
+          grid
+          gap-16
+          sm:gap-6
+          lg:gap-0 lg:grid-cols-4
+          auto-rows-max
+          lg:content-center
+          px-6
+        "
+      >
+        <h2 class="lg:col-span-2 font-bold text-xl my-4">
+          Suggested locations
+        </h2>
+        <div
+          class="
+            lg:col-span-full lg:row-start-2 lg:row-span-auto
+            flex
+            gap-4
+            flex-wrap
+            justify-center
+            align-baseline
+            px-4
+            sibling-fade
+          "
+        >
+          <button class="suggested-btn">Madrid</button>
+          <button class="suggested-btn">Paris</button>
+          <button class="suggested-btn">Berlin</button>
+          <button class="suggested-btn">London</button>
+          <button class="suggested-btn">New York City</button>
+          <button class="suggested-btn">Moscow</button>
+          <button class="suggested-btn">Tokyo</button>
+          <button class="suggested-btn">Mexico City</button>
+        </div>
+      </section>
+    </div>
+
+    <script id="searchForm" type="text/template">
+        <form
         class="
           lg:col-start-4 lg:col-span-3
           xl:col-start-4 xl:col-span-2
@@ -36,6 +83,7 @@
           grid
           gap-4
           place-content-center
+          mt-2
           px-2
         "
         action=""
@@ -105,66 +153,24 @@
             <i class="fas fa-search px-3"></i>
           </button>
         </fieldset>
-      </form>
-      <section
-        class="
-          lg:col-span-4
-          xl:col-span-3
-          row-start-3
-          sm:row-start-4
-          lg:row-start-3
-          xl:row-start-2
-          row-end-full
-          lg:row-span-2
-          grid
-          gap-16
-          sm:gap-6
-          lg:gap-0 lg:grid-cols-4
-          auto-rows-max
-          lg:content-center
-          px-6
-        "
-      >
-        <h2 class="lg:col-span-2 font-bold text-xl my-4">
-          Suggested locations
-        </h2>
-        <div
+        <p
+          id="errorSearch"
           class="
-            lg:col-span-full lg:row-start-2 lg:row-span-auto
-            flex
-            gap-4
-            flex-wrap
-            justify-center
-            align-baseline
-            px-4
-            sibling-fade
+            invisible
+            w-max
+            mx-auto
+            py-1
+            px-2
+            text-center text-sm text-light-coral
+            border-b-2 border-light-coral
+            rounded
+            shadow
+            bg-charcoal
           "
         >
-          <button class="suggested-btn">Madrid</button>
-          <button class="suggested-btn">Paris</button>
-          <button class="suggested-btn">Berlin</button>
-          <button class="suggested-btn">London</button>
-          <button class="suggested-btn">New York City</button>
-          <button class="suggested-btn">Moscow</button>
-          <button class="suggested-btn">Tokyo</button>
-          <button class="suggested-btn">Mexico City</button>
-        </div>
-      </section>
-    </div>
-
-    <script id="errorMessage" type="text/template">
-      <p
-        class="
-          py-1
-          text-center text-sm text-light-coral
-          border-b-2 border-light-coral
-          rounded
-          shadow
-          bg-charcoal
-        "
-      >
-        {{message}}
-      </p>
+          Couldn't find your city, sorry.
+        </p>
+      </form>
     </script>
   </body>
 </html>
