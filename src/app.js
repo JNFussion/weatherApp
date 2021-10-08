@@ -66,7 +66,9 @@ const App = (() => {
   };
 
   const findMatches = async (cityName) => {
-    const response = await fetch("../src/assets/data/city.list.json");
+    const response = await fetch(
+      "https://raw.githubusercontent.com/JNFussion/weatherApp/master/src/assets/data/city.list.json"
+    );
     const cities = await response.json();
     const find = await cities.reduce((results, city) => {
       if (city.name === cityName) {
