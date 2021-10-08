@@ -1,7 +1,13 @@
 module.exports = {
   purge: {
     enabled: true,
-    content: ["./src/index.html", "./src/main.css"],
+    content: [
+      "./src/index.html",
+      "./src/cityTemplate.html",
+      "./src/searchResultTemplate.html",
+      "./src/index.js",
+      /* "./src/assets/stylesheets/main.css", */
+    ],
     safelist: [
       "bg-clear",
       "bg-few-clouds",
@@ -45,6 +51,7 @@ module.exports = {
       },
       fluorescentBlue: "#78F2EA",
       gainsboro: "#D8D9DF",
+      "light-coral": "#F16F6F",
     },
     extend: {
       backgroundImage: {

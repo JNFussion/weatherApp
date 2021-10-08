@@ -57,7 +57,7 @@ const App = (() => {
 
   const fetchForecast = async (coord, units) => {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,alerts&appid=22d6c59a1f38c88cbfbd6e292f88603a&units=${units}`,
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,alerts&appid=${process.env.API_KEY}&units=${units}`,
       { mode: "cors" }
     );
     const data = await response.json();

@@ -5,10 +5,6 @@ import { forecastFactory } from "./weather";
 
 const domController = (() => {
   const form = document.querySelector("form");
-  const cityTemplate = document.getElementById("cityTemplate").innerHTML;
-  const searchResultsTemplate = document.getElementById(
-    "searchResultsTemplate"
-  ).innerHTML;
   const weatherAttachment = {
     "01d": { icon: "fas fa-sun", bg: "clear" },
     "02d": { icon: "fas fa-cloud-sun", bg: "few-clouds" },
@@ -76,14 +72,18 @@ const domController = (() => {
     },
   };
 
-  const renderCity = (location) => {
+  const renderCity = async (location) => {
+    const templateFile = await import("./cityTemplate.html");
+    const cityTemplate = await templateFile.default;
     document.body.innerHTML = Mustache.render(cityTemplate, {
       city: location,
       ...helperTemplateFunctions,
     });
   };
 
-  const renderSearchResults = (listLocation) => {
+  const renderSearchResults = async (listLocation) => {
+    const templateFile = await import("./searchResultTemplate.html");
+    const searchResultsTemplate = await templateFile.default;
     document.body.innerHTML = Mustache.render(searchResultsTemplate, {
       cities: listLocation,
       length: listLocation.length,
