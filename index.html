@@ -1,12 +1,99 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/><title>Weather</title><script defer="defer" src="runtime.bundle.js"></script><script defer="defer" src="index.bundle.js"></script><script defer="defer" src="app.bundle.js"></script><script defer="defer" src="dom.bundle.js"></script><script defer="defer" src="weather.bundle.js"></script></head><body class="text-ghostWhite bg-prussianBlue"><div class="h-screen min-h-screen grid grid-rows-6 lg:grid-cols-8 lg:grid-rows-4 bg-prussianBlue bg-wavesplit lg:bg-wave bg-cover bg-no-repeat bg-right-top lg:bg-center text-ghostWhite"><form class="lg:col-start-4 lg:col-span-3 xl:col-start-4 xl:col-span-2 lg:row-start-2 row-span-2 sm:row-span-3 lg:row-span-1 grid gap-4 place-content-center px-2" action=""><fielset class="flex gap-2"><input type="radio" name="degree" id="input-fahrenheit" class="appearance-none" value="imperial"/> <label for="input-fahrenheit" class="px-1 font-bold cursor-pointer">°F</label><div class="h-full w-px bg-ghostWhite"></div><input type="radio" name="degree" id="input-celcius" class="appearance-none order-last" value="metric" checked="checked"/> <label for="input-celcius" class="px-1 font-bold cursor-pointer" id="label-celcius">°C</label></fielset><fieldset id="searchBar" class="flex gap-1 bg-midnightGreenEagleGreen-dark px-5 py-2 rounded-full shadow-md"><input class="w-9/12 flex-auto bg-charcoal rounded-sm px-3 py-1 focus:outline-none focus:ring-1 focus:ring-skobeloff" type="search" placeholder="Search your city" name="city-name" required/> <button class="rounded-l-sm rounded-r-lg bg-russianViolet-light hover:bg-russianViolet" type="submit"><i class="fas fa-search px-3"></i></button></fieldset></form><section class="lg:col-span-4 xl:col-span-3 row-start-3 sm:row-start-4 lg:row-start-3 xl:row-start-2 row-end-full lg:row-span-2 grid gap-16 sm:gap-6 lg:gap-0 lg:grid-cols-4 auto-rows-max lg:content-center px-6"><h2 class="lg:col-span-2 font-bold text-xl my-4">Suggested locations</h2><div class="lg:col-span-full lg:row-start-2 lg:row-span-auto flex gap-4 flex-wrap justify-center align-baseline px-4 sibling-fade"><button class="suggested-btn">Madrid</button> <button class="suggested-btn">Paris</button> <button class="suggested-btn">Berlin</button> <button class="suggested-btn">London</button> <button class="suggested-btn">New York City</button> <button class="suggested-btn">Moscow</button> <button class="suggested-btn">Tokyo</button> <button class="suggested-btn">Mexico City</button></div></section></div><script id="errorMessage" type="text/template"><p
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/><title>Weather</title><script defer="defer" src="runtime.bundle.js"></script><script defer="defer" src="index.bundle.js"></script><script defer="defer" src="app.bundle.js"></script><script defer="defer" src="dom.bundle.js"></script><script defer="defer" src="weather.bundle.js"></script></head><body class="text-ghostWhite bg-prussianBlue"><div class="h-screen min-h-screen grid grid-rows-6 lg:grid-cols-8 lg:grid-rows-4 bg-prussianBlue bg-wavesplit lg:bg-wave bg-cover bg-no-repeat bg-right-top lg:bg-center text-ghostWhite"><section class="lg:col-span-4 xl:col-span-3 row-start-3 sm:row-start-4 lg:row-start-3 xl:row-start-2 row-end-full lg:row-span-2 grid gap-16 sm:gap-6 lg:gap-0 lg:grid-cols-4 auto-rows-max lg:content-center px-6"><h2 class="lg:col-span-2 font-bold text-xl my-4">Suggested locations</h2><div class="lg:col-span-full lg:row-start-2 lg:row-span-auto flex gap-4 flex-wrap justify-center align-baseline px-4 sibling-fade"><button class="suggested-btn">Madrid</button> <button class="suggested-btn">Paris</button> <button class="suggested-btn">Berlin</button> <button class="suggested-btn">London</button> <button class="suggested-btn">New York City</button> <button class="suggested-btn">Moscow</button> <button class="suggested-btn">Tokyo</button> <button class="suggested-btn">Mexico City</button></div></section></div><script id="searchForm" type="text/template"><form
         class="
-          py-1
-          text-center text-sm text-light-coral
-          border-b-2 border-light-coral
-          rounded
-          shadow
-          bg-charcoal
+          lg:col-start-4 lg:col-span-3
+          xl:col-start-4 xl:col-span-2
+          lg:row-start-2
+          row-span-2
+          sm:row-span-3
+          lg:row-span-1
+          grid
+          gap-4
+          place-content-center
+          mt-2
+          px-2
         "
+        action=""
       >
-        {{message}}
-      </p></script></body></html>
+        <fielset class="flex gap-2">
+          <input
+            type="radio"
+            name="degree"
+            id="input-fahrenheit"
+            class="appearance-none"
+            value="imperial"
+          />
+          <label for="input-fahrenheit" class="px-1 font-bold cursor-pointer"
+            >°F</label
+          >
+          <div class="h-full w-px bg-ghostWhite"></div>
+          <input
+            type="radio"
+            name="degree"
+            id="input-celcius"
+            class="appearance-none order-last"
+            value="metric"
+            checked
+          />
+          <label
+            for="input-celcius"
+            class="px-1 font-bold cursor-pointer"
+            id="label-celcius"
+            >°C</label
+          >
+        </fielset>
+        <fieldset
+          id="searchBar"
+          class="
+            flex
+            gap-1
+            bg-midnightGreenEagleGreen-dark
+            px-5
+            py-2
+            rounded-full
+            shadow-md
+          "
+        >
+          <input
+            class="
+              w-9/12
+              flex-auto
+              bg-charcoal
+              rounded-sm
+              px-3
+              py-1
+              focus:outline-none focus:ring-1 focus:ring-skobeloff
+            "
+            type="search"
+            placeholder="Search your city"
+            name="city-name"
+            required
+          />
+          <button
+            class="
+              rounded-l-sm rounded-r-lg
+              bg-russianViolet-light
+              hover:bg-russianViolet
+            "
+            type="submit"
+          >
+            <i class="fas fa-search px-3"></i>
+          </button>
+        </fieldset>
+        <p
+          id="errorSearch"
+          class="
+            invisible
+            w-max
+            mx-auto
+            py-1
+            px-2
+            text-center text-sm text-light-coral
+            border-b-2 border-light-coral
+            rounded
+            shadow
+            bg-charcoal
+          "
+        >
+          Couldn't find your city, sorry.
+        </p>
+      </form></script></body></html>
