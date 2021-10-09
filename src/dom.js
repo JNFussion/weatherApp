@@ -5,8 +5,6 @@ import { forecastFactory } from "./weather";
 
 const domController = (() => {
   const formTemplate = document.getElementById("searchForm").innerHTML;
-  const errorFetch = document.getElementById("errorFetch");
-  const errorSearch = document.getElementById("errorSearch");
   const weatherAttachment = {
     "01d": { icon: "fas fa-sun", bg: "clear" },
     "02d": { icon: "fas fa-cloud-sun", bg: "few-clouds" },
@@ -102,18 +100,25 @@ const domController = (() => {
   };
 
   const handleSubmission = async (formData) => {
-    cachedSearchResults = await App.submitForm(
-      formData.get("city-name"),
-      formData.get("degree")
-    );
-    if (cachedSearchResults.length == 1) {
-      renderCity(cachedSearchResults[0]);
-      return;
-    } else if (cachedSearchResults.length < 1) {
-      errorSearch.classList.replace("invisible", "trigger-animation");
-      return;
+    try {
+      cachedSearchResults = await App.submitForm(
+        formData.get("city-name"),
+        formData.get("degree")
+      );
+      if (cachedSearchResults.length == 0) {
+        document.getElementById("errorSearch").classList.remove("invisible");
+        document.querySelector("button[type='submit']").innerHTML =
+          '<i class="fas fa-search px-3"></i>';
+        return;
+      } else if (cachedSearchResults.length == 1) {
+        renderCity(cachedSearchResults[0]);
+        return;
+      }
+      renderSearchResults(cachedSearchResults);
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong. Please reload the page and try again.");
     }
-    renderSearchResults(cachedSearchResults);
   };
 
   // EVENTS
@@ -125,6 +130,8 @@ const domController = (() => {
 
   document.body.addEventListener("submit", (e) => {
     e.preventDefault();
+    e.target.querySelector("button[type='submit']").innerHTML =
+      '<div class="lds-dual-ring"></div>';
     handleSubmission(new FormData(e.target));
   });
 

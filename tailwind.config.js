@@ -6,7 +6,7 @@ module.exports = {
       "./src/cityTemplate.html",
       "./src/searchResultTemplate.html",
       "./src/index.js",
-      /* "./src/assets/stylesheets/main.css", */
+      "./src/dom.js",
     ],
     safelist: [
       "bg-clear",
