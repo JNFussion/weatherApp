@@ -19,6 +19,8 @@ If you wanna see it, click [here.](https://jnfussion.github.io/weatherApp/)
 
 - Tailwindcss for styling. [Link](https://tailwindcss.com/)
 
+- Color paletter [Link](https://coolors.co/)
+
 - Fontawesome for icons. [Link](https://fontawesome.com/)
 
 - Hover effects. [Link](https://www.sliderrevolution.com/resources/css-hover-effects/)
